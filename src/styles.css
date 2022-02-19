@@ -45,6 +45,12 @@
   box-shadow: 0.2rem 0.2rem 1rem var(--neutral);
 }
 
+.search__title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
 #search__input,
 #search__selection {
   width: 24rem;
@@ -113,4 +119,29 @@
   font-size: 1rem;
 }
 
+@media screen and (max-width: 500px) {
+
+  .container {
+    padding-bottom: 10rem;
+  }
+  .search {
+    width: 25rem;
+    padding: 1rem 0rem;
+    margin-top: 15rem;
+  }
+
+  .search__input,
+  .search__selection {
+    flex-direction: column;
+  }
+
+  #search__input,
+  #search__selection {
+    margin: 0;
+  }
+
+  .weather {
+    flex-direction: column;
+  }
+}
 
