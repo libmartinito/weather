@@ -24,7 +24,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 5rem;
+  gap: 3rem;
 }
 
 .search,
@@ -58,6 +58,7 @@
   font-size: 1rem;
   border: 0.1rem solid var(--zinc);
   border-radius: 0.2rem;
+  color: var(--neutral)
 }
 
 #search__input {
@@ -84,7 +85,7 @@
 
 .weather {
   display: flex;
-  gap: 5rem;
+  gap: 3rem;
 }
 
 .card {
@@ -92,14 +93,14 @@
   border-radius: 0.5rem;
   box-shadow: 0.2rem 0.2rem 1rem var(--neutral);
   width: 20rem;
-  padding: 0.5rem;
+  padding: 2rem 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .card__title {
-  font-size: 3.5rem;
+  font-size: 3rem;
   font-weight: 400;
 }
 
@@ -108,15 +109,19 @@
 }
 
 .card__copy--temp {
-  font-size: 6rem;
+  font-size: 4rem;
   font-weight: 700;
 }
 
 .card__selection {
+  width: 11rem;
   background-color: var(--stone);
   border: 0.1rem solid var(--zinc);
   border-radius: 0.2rem;
-  font-size: 1rem;
+  padding: 0.2rem;
+  color: var(--neutral);
+  font-size: 2rem;
+  text-align: center;
 }
 
 @media screen and (max-width: 500px) {

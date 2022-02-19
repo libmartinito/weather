@@ -57,16 +57,147 @@ const getWeatherInfo = async () => {
   const latitude = coordinates[0]
   const longitude = coordinates[1]
 
-  const response = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`, {mode: 'cors'})
+  const response = await fetch(`http://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly,alerts&units=metric&appid=${API_KEY}`, {mode: 'cors'})
   const weatherInfo = await response.json()
   
-  console.log(weatherInfo)
+  return weatherInfo
+}
+
+const formatTime = (time) => {
+  if (time < 10) {
+    return `0${time}`
+  } 
+    return time
+}
+
+const getTime = (unixTimestamp) => {
+  const milliseconds = unixTimestamp * 1000
+  const dateObject = new Date(milliseconds)
+  const hours = formatTime(dateObject.getHours())
+  const minutes = formatTime(dateObject.getMinutes())
+  const time = `${hours}:${minutes}`
+  return time
+}
+
+const updateDisplay = (object, period) => {
+  const weatherObjectKeys = Object.keys(object)
+
+  for( let i = 0; i < weatherObjectKeys.length; i += 1) {
+    const childSelector = `.${period} :nth-child(${i + 2})`
+    const child = document.querySelector(childSelector)
+    child.textContent = object[weatherObjectKeys[i]]
+  }
+}
+
+const toPascalCase = (string) => {
+  const strArr = string.split('')
+  const pascalCaseStrArr = []
+
+  for (let i = 0; i < strArr.length; i += 1) {
+    if (i === 0) {
+      pascalCaseStrArr.push(strArr[i].toUpperCase())
+    } else if (strArr[i - 1] === ' ') {
+      pascalCaseStrArr.push(strArr[i].toUpperCase())
+    } else {
+      pascalCaseStrArr.push(strArr[i])
+    }
+  }
+
+  const pascalCaseStr = pascalCaseStrArr.join('')
+
+  return pascalCaseStr
+}
+
+const updateWeatherToday = (weatherInfo) => {
+  const weatherToday = {}
+
+  weatherToday.temp = `${weatherInfo.current.temp}°C`
+  weatherToday.feelsLike = `Feels like ${weatherInfo.current.feels_like}°C`
+  const weatherDescriptionToday = toPascalCase(weatherInfo.current.weather[0].description)
+  weatherToday.description = weatherDescriptionToday
+  weatherToday.sunrise = `Sunrise: ${getTime(weatherInfo.current.sunrise)}`
+  weatherToday.sunset = `Sunset: ${getTime(weatherInfo.current.sunset)}`
+  weatherToday.dt = `Time: ${getTime(weatherInfo.current.dt)}`
+
+  updateDisplay(weatherToday, 'today')
+}
+
+const updateWeatherTomorrow = (weatherInfo) => {
+  const weatherTomorrow = {}
+
+  weatherTomorrow.temp = `${weatherInfo.daily[1].temp.morn}°C`
+  weatherTomorrow.feelsLike = `Feels like ${weatherInfo.daily[1].feels_like.morn}°C`
+  const weatherDescriptionTomorrow = toPascalCase(weatherInfo.daily[1].weather[0].description)
+  weatherTomorrow.description = weatherDescriptionTomorrow
+  weatherTomorrow.sunrise = `Sunrise: ${getTime(weatherInfo.daily[1].sunrise)}`
+  weatherTomorrow.sunset = `Sunset: ${getTime(weatherInfo.daily[1].sunset)}`
+
+  updateDisplay(weatherTomorrow, 'tomorrow')
+}
+
+let tempTomorrowArr = []
+
+const getTempTomorrow = async (weatherInfo) => {
+
+  const timeOfDay = ['morn', 'day', 'eve', 'night']
+
+  const tempTomorrow = {}
+  const feelsLikeTomorrow = {}
+
+  timeOfDay.forEach(time => {
+    tempTomorrow[time] = weatherInfo.daily[1].temp[time]
+    feelsLikeTomorrow[time] = weatherInfo.daily[1].feels_like[time]
+  })
+
+  tempTomorrowArr = [tempTomorrow, feelsLikeTomorrow]
+}
+
+const updateWeatherDisplay = async () => {
+  const weatherInfo = await getWeatherInfo()
+
+  updateWeatherToday(weatherInfo)
+  updateWeatherTomorrow(weatherInfo)
+  getTempTomorrow(weatherInfo)
+}
+
+const updateTomorrowTemp = () => {
+  const searchInputValue = document.querySelector('#search__input').value
+  const searchSelectionValue = document.querySelector('#search__selection').value
+
+  const tempTomorrow = tempTomorrowArr[0]
+  const feelsLikeTomorrow = tempTomorrowArr[1]
+  const timeOfDayLegend = {
+    'M': 'morn',
+    'D': 'day',
+    'E': 'eve',
+    'N': 'night'
+  }
+  const cardSelectionValue = document.querySelector('.card__selection').value
+  const cardSelectionValueArr = cardSelectionValue.split('')
+  const timeOfDayLegendKey = cardSelectionValueArr[0]
+
+  const temp = document.querySelector('.tomorrow :nth-child(2)')
+  const feelsLike = document.querySelector('.tomorrow :nth-child(3)')
+
+  const tempValue = tempTomorrow[timeOfDayLegend[timeOfDayLegendKey]]
+  const feelsLikeValue = feelsLikeTomorrow[timeOfDayLegend[timeOfDayLegendKey]]
+  
+  if (searchInputValue !== '' && searchSelectionValue !== "--Select country--") {
+    temp.textContent = `${tempValue}°C`
+    feelsLike.textContent = `Feels like ${feelsLikeValue}°C`
+  }
 }
 
 const btn = document.querySelector('.button')
 
 btn.addEventListener('click', () => {
-  getWeatherInfo()
+  updateWeatherDisplay()
+})
+
+const selection = document.querySelector('.card__selection')
+
+selection.addEventListener('change', () => {
+  updateTomorrowTemp()
 })
 
 populateCountrySelection()
