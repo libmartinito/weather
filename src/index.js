@@ -1,3 +1,5 @@
+import './styles.css'
+
 const populateCountrySelection = async () => {
   const response = await fetch("https://restcountries.com/v3.1/all?fields=name", {mode: 'cors'})
   const rawCountryArr = await response.json()

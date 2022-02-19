@@ -5,11 +5,112 @@
 }
 
 :root {
-  --shale: rgba(168, 162, 158);
-  --slate: #f8fafc;
+  --stone: #e7e5e4;
+  --gray: #f9fafb;
+  --zinc: #71717a;
+  --neutral: #404040;
   font-size: 14px;
+  font-family: 'Raleway', sans-serif;
+  color: var(--neutral);
   box-sizing: border-box;
 }
 
+.container {
+  min-height: 100vh;
+  background: url('./images/sky.jpg') var(--stone);
+  background-size: cover;
+  background-blend-mode: multiply;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5rem;
+}
+
+.search,
+.search__input,
+.search__selection {
+  display: flex;
+  align-items: center;
+}
+
+.search {
+  background-color: var(--gray);
+  width: 35rem;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 0.5rem;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0.2rem 0.2rem 1rem var(--neutral);
+}
+
+#search__input,
+#search__selection {
+  width: 24rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1rem;
+  border: 0.1rem solid var(--zinc);
+  border-radius: 0.2rem;
+}
+
+#search__input {
+  box-sizing: border-box;
+  margin-left: 2.9rem;
+  padding: 0.1rem 0.1rem 0.1rem 0.5rem;
+}
+
+#search__selection {
+  margin-left: 1rem;
+  padding: 0.1rem 0.1rem 0.1rem 0.25rem;
+  background-color: var(--stone);
+}
+
+.button {
+  text-decoration: none;
+  color: var(--neutral);
+  background-color: var(--stone);
+  border: 0.1rem solid var(--zinc);
+  border-radius: 0.2rem;
+  padding: 0.2rem 1rem;
+  margin-top: 0.5rem;
+}
+
+.weather {
+  display: flex;
+  gap: 5rem;
+}
+
+.card {
+  background-color: var(--gray);
+  border-radius: 0.5rem;
+  box-shadow: 0.2rem 0.2rem 1rem var(--neutral);
+  width: 20rem;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card__title {
+  font-size: 3.5rem;
+  font-weight: 400;
+}
+
+.card__copy {
+  font-size: 2rem;
+}
+
+.card__copy--temp {
+  font-size: 6rem;
+  font-weight: 700;
+}
+
+.card__selection {
+  background-color: var(--stone);
+  border: 0.1rem solid var(--zinc);
+  border-radius: 0.2rem;
+  font-size: 1rem;
+}
 
 
