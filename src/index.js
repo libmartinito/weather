@@ -42,7 +42,7 @@ const getLocationCoordinates = async () => {
   const city = document.querySelector('#search__input').value
   
 
-  const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}, ${countryCode}&limit=1&appid=${API_KEY}`, {mode: 'cors'})
+  const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}, ${countryCode}&limit=1&appid=${API_KEY}`, {mode: 'cors'})
   const geolocationInfo = await response.json()
 
   const latitude = geolocationInfo[0].lat
@@ -57,7 +57,7 @@ const getWeatherInfo = async () => {
   const latitude = coordinates[0]
   const longitude = coordinates[1]
 
-  const response = await fetch(`http://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly,alerts&units=metric&appid=${API_KEY}`, {mode: 'cors'})
+  const response = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly,alerts&units=metric&appid=${API_KEY}`, {mode: 'cors'})
   const weatherInfo = await response.json()
   
   return weatherInfo
