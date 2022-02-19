@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --shale: rgba(168, 162, 158);
+  --slate: #f8fafc;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+
+

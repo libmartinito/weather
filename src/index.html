@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="container">
+    <div class="search">
+      <div class="search__input">
+        <label for="search__input">City:</label>
+        <input type="text" id="search__input" required>
+      </div>
+      <div class="search__selection">
+        <label for="search__selection">Country:</label>
+        <select id="search__selection" required>
+          <option>--Select country--</option>
+        </select>
+      </div>
+      <a href="#" class="button">
+        <span class="button__body">Search</span>
+      </a>
+    </div>
+    <div class="weather">
+      <div class="card today">
+        <h1 class="card__title">Today</h1>
+        <p class="card__copy card__copy--temp">29&deg;</p>
+        <p class="card__copy">Feels like 32&deg;</p>
+        <p class="card__copy">Overhead Clouds</p>
+        <p class="card__copy">Sunrise: 6:40 AM</p>
+        <p class="card__copy">Sunset: 7:20 PM</p>
+        <p class="card__copy"></p>
+      </div>
+
+      <div class="card tomorrow">
+        <h1 class="card__title">Tomorrow</h1>
+        <p class="card__copy card__copy--temp">29&deg;</p>
+        <p class="card__copy">Feels like 32&deg;</p>
+        <p class="card__copy">Overhead Clouds</p>
+        <p class="card__copy">Sunrise: 6:40 AM</p>
+        <p class="card__copy">Sunset: 7:20 PM</p>
+        <select class="card__selection">
+          <option selected>00:00:00</option>
+          <option>03:00:00</option>
+          <option>06:00:00</option>
+          <option>09:00:00</option>
+          <option>12:00:00</option>
+          <option>15:00:00</option>
+          <option>18:00:00</option>
+          <option>21:00:00</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
